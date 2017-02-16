@@ -1,0 +1,67 @@
+/*
+ * 2060 Digitizer Login Stylesheet
+ */
+
+#login {
+  padding: 4% 0 0 0; 
+}
+
+.login h1 a {
+  background: url(../images/login-logo.png) no-repeat top center;
+  background-size:150px 150px;
+  width: 150px;
+  height: 150px;
+  text-indent: -9999px;
+  overflow: hidden;
+  display: block;
+  margin: 0 auto; 
+}
+
+.login form {
+  margin: 0 0 0 8px;
+  padding: 26px 24px 46px;
+  font-weight: normal;
+  background: white;
+  border: 1px solid #E5E5E5;
+  border-radius: 3px;
+  box-shadow: none; 
+}
+
+body form .input {
+  font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+  font-weight: 200;
+  font-size: 24px;
+  width: 97%;
+  padding: 3px;
+  margin-top: 2px;
+  margin-right: 6px;
+  margin-bottom: 16px;
+  border: 1px solid #E5E5E5;
+  background: #FBFBFB;
+  outline: none;
+  box-shadow: inset 1px 1px 2px rgba(200, 200, 200, 0.2); 
+}
+
+.login.wp-core-ui .button-primary {
+    background: #3caa44;
+    border-color: #3b9041 #3b9041 #3b9041;
+    -webkit-box-shadow: 0 1px 0 #3b9041;
+    box-shadow: 0 1px 0 #3b9041;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 -1px 1px #006799,1px 0 1px #3b9041,0 1px 1px #3b9041,-1px 0 1px #3b9041;
+}
+
+.login input {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  border: 1px solid #DDDDDD;
+}
+ 
+.login input:focus{
+  box-shadow: 0 0 5px #8dc63f;
+  border: 1px solid #3b9041;
+}
