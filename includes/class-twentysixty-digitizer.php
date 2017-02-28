@@ -79,7 +79,7 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.0.0';
+		$this->version = '1.0.1';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -178,6 +178,8 @@ class Twentysixty_Digitizer {
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
+	
+
 
 	/**
 	 * Register all of the hooks related to the admin area functionality
@@ -189,6 +191,9 @@ class Twentysixty_Digitizer {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new Twentysixty_Digitizer_Admin( $this->get_plugin_name(), $this->get_version() );
+		
+		// If plugin has been updated, run any upgrades or one-time scripts
+    $this->loader->add_action( 'init', $plugin_admin, 'maybe_run_update' );
 
     // Enqueue login styles
     $this->loader->add_action( 'login_enqueue_scripts', $plugin_admin, 'login_styles' );
@@ -272,5 +277,4 @@ class Twentysixty_Digitizer {
 	public function get_version() {
 		return $this->version;
 	}
-
 }
