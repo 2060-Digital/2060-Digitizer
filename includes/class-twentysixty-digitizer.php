@@ -79,7 +79,7 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.0.1';
+		$this->version = '1.0.2';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -155,10 +155,37 @@ class Twentysixty_Digitizer {
 			'master'
 		);
 		
-		if ( defined( 'TWENTYSIXTY_REMOTE_ACCESS_TOKEN' ) ) {
-  		$myUpdateChecker->setAccessToken( TWENTYSIXTY_REMOTE_ACCESS_TOKEN );
-		}		  
-
+		$access_key = get_option( 'twentysixty_digitizer_remote_access_token' );
+		
+		if ( !empty( $access_key ) ) {
+  		$myUpdateChecker->setAccessToken( $access_key );
+		}	else {
+  		$this->loader->add_action( "admin_notices", $this, "display_access_key_notice" );
+		}
+	}
+	
+	
+	
+	/**
+	 * Render an access key notice for administrators.
+	 * 
+	 * @access public
+	 * @return void
+	 */
+	public function display_access_key_notice() {
+  	
+  	if ( current_user_can( "manage_options" ) ):	?>
+  	<div id="setting-error-settings_updated" class="error settings-error notice is-dismissible"> 
+      <p>
+        <strong><?php _e( "Enter your 2060 Digital access key to receive important updates.", $this->plugin_name ); ?>
+        <a href="<?php echo admin_url( '/options-general.php?page=twentysixty_digitizer' ); ?>"><?php _e( "Take me there!", $this->plugin_name ); ?></a>
+        </strong>
+      </p>
+      <button type="button" class="notice-dismiss">
+        <span class="screen-reader-text"><?php _e( "Dismiss this notice.", $this->plugin_name ); ?></span>
+      </button>
+    </div>
+    <?php endif; 
 	}
 
 
@@ -194,6 +221,11 @@ class Twentysixty_Digitizer {
 		
 		// If plugin has been updated, run any upgrades or one-time scripts
     $this->loader->add_action( 'init', $plugin_admin, 'maybe_run_update' );
+    
+    // Add settings page
+    $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
+    $this->loader->add_action( 'admin_init', $plugin_admin, 'settings_init' );
+
 
     // Enqueue login styles
     $this->loader->add_action( 'login_enqueue_scripts', $plugin_admin, 'login_styles' );

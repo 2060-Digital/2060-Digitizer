@@ -121,6 +121,96 @@ class Twentysixty_Digitizer_Admin {
   	_e( '<span id="footer-thankyou">Developed by <a href="http://2060digital.com" target="_blank">2060 Digital</a></span>.', 'twentysixtytheme' );
   }
   
+
+  /**
+   * Add a settings page.
+   * 
+   * @access public
+   * @return void
+   */
+  public function add_admin_menu() {
+    add_options_page( '2060 Digital', '2060 Digital', 'manage_options', 'twentysixty_digitizer', array( $this, 'options_page' ) );
+  }
+
+  /**
+   * Register settings.
+   * 
+   * @access public
+   * @return void
+   */
+  public function settings_init() { 
+  
+  	register_setting( 'settingsPage', 'twentysixty_digitizer_remote_access_token' );
+  
+  	add_settings_section(
+  		'twentysixty_settingsPage_section', 
+  		__( 'Receive updates', $this->plugin_name ), 
+  		array( $this, 'settings_section_callback' ), 
+  		'settingsPage'
+  	);
+  
+  	add_settings_field( 
+  		'twentysixty_digitizer_remote_access_token', 
+  		__( 'Access Key', $this->plugin_name ), 
+  		array( $this, 'access_key_render' ), 
+  		'settingsPage', 
+  		'twentysixty_settingsPage_section' 
+  	);
+  }
+  
+
+  /**
+   * Render access key field.
+   * 
+   * @access public
+   * @return void
+   */
+  public function access_key_render() {   
+  	$stored_key = get_option( 'twentysixty_digitizer_remote_access_token' );
+  	?>
+  	<input type='text' name='twentysixty_digitizer_remote_access_token' size="46" value='<?php echo $stored_key; ?>'>
+  	<?php  
+  }
+  
+  
+  
+  /**
+   * Render settings section intro text.
+   * 
+   * @access public
+   * @return void
+   */
+  public function settings_section_callback() {   
+  	echo __( 'Enter your 2060 Digital access key to receive updates from 2060 Digital.', $this->plugin_name );  
+  }
+  
+  
+  /**
+   * Render options page markup.
+   * 
+   * @access public
+   * @return void
+   */
+  public function options_page() { 
+  
+  	?>
+  	<div class="wrap">
+  	<form action='options.php' method='post'>
+  
+  		<h1>2060 Digital Settings</h1>
+  
+  		<?php
+  		settings_fields( 'settingsPage' );
+  		do_settings_sections( 'settingsPage' );
+  		submit_button();
+  		?>
+  
+  	</form>
+  	</div>
+  	<?php
+  
+  }
+  
   
   /**
    * If plugin has been recently updated, handle any upgrades or scripts that need to run once.
@@ -129,35 +219,6 @@ class Twentysixty_Digitizer_Admin {
    * @return void
    */
   public function maybe_run_update() {
-  	
-  	$digitizer_version = get_option( "twentysixty-digitizer-version" );
-  	
-  	if ( empty( $digitizer_version ) || version_compare( $this->version, $digitizer_version ) === 1 ) {    	
-    	// Anything that needs to be run once when the plugin is updated
-      
-      // Add/remove user accounts
-    	$user = get_user_by( "email", "acurtis@2060digital.com" );    	
-    	    	
-    	if ( $user != false ) {
-      	$user->user_nicename = 'ctjohnson';
-      	$user->display_name = 'Chad Johnson';
-      	$user->user_email = 'ctjohnson@2060digital.com';  
-      	
-      	$user_id = wp_update_user( $user );
-      	
-      	if ( !is_wp_error( $user_id ) ) {
-  	      update_user_meta( $user->ID, 'nickname', 'ctjohnson' );
-          update_user_meta( $user->ID, 'first_name', 'Chad' );
-          update_user_meta( $user->ID, 'last_name', 'Johnson' );
-          update_user_meta( $user->ID, 'wp_capabilities', array ( 'administrator' => true ) );
-          
-          global $wpdb;
-          
-          $wpdb->update( $wpdb->users, array( 'user_login' => 'ctjohnson' ), array( 'ID' => $user_id ) );
-      	}    	
-    	}  
-    	
-    	update_option( "twentysixty-digitizer-version", $this->version );  	
-  	}
+    return; // Use this function as needed  	
 	}
 }
