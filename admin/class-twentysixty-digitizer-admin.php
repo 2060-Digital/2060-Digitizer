@@ -220,37 +220,13 @@ class Twentysixty_Digitizer_Admin {
    */
   public function maybe_run_update() {
     
-    $digitizer_version = get_option( "twentysixty-digitizer-version" );
+    return; // Remove this to run updates
     
-    echo 'aa';
+    $digitizer_version = get_option( "twentysixty-digitizer-version" );
     
     if ( empty( $digitizer_version ) || version_compare( $this->version, $digitizer_version ) === 1 ) {     
         // Anything that needs to be run once when the plugin is updated
-    
-      // Add/remove user accounts
-      $user = get_user_by( "email", "achalfant@2060digital.com" );      
-
-      if ( $user == false ) 
-        $user = get_user_by( "email", "aringo@2060digital.com" );            
-                
-      if ( $user != false ) {
-        $user->user_nicename = 'ttorres';
-        $user->display_name = 'Tahnee Torres';
-        $user->user_email = 'ttorres@2060digital.com';  
-        
-        $user_id = wp_update_user( $user );
-        
-        if ( !is_wp_error( $user_id ) ) {
-          update_user_meta( $user->ID, 'nickname', 'ttorres' );
-          update_user_meta( $user->ID, 'first_name', 'Tahnee' );
-          update_user_meta( $user->ID, 'last_name', 'Torres' );
-          
-          global $wpdb;
-          
-          $wpdb->update( $wpdb->users, array( 'user_login' => 'ttorres' ), array( 'ID' => $user_id ) );
-        }       
-      }          
-      update_option( "twentysixty-digitizer-version", $this->version );   
     }
+
 	}
 }
