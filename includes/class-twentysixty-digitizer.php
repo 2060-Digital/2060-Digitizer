@@ -79,7 +79,7 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.0.5';
+		$this->version = '1.0.6';
 
 		$this->load_dependencies();
 		$this->set_locale();
