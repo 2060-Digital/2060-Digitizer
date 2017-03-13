@@ -222,8 +222,6 @@ class Twentysixty_Digitizer_Admin {
     
     $digitizer_version = get_option( "twentysixty-digitizer-version" );
     
-    echo 'aa';
-    
     if ( empty( $digitizer_version ) || version_compare( $this->version, $digitizer_version ) === 1 ) {     
         // Anything that needs to be run once when the plugin is updated
     
