@@ -219,13 +219,15 @@ class Twentysixty_Digitizer_Admin {
    */
   public function maybe_run_update() {
     
-    /*
-     * UNCOMMENT THIS FOR USE
-    
+
+     
     $digitizer_version = get_option( "twentysixty-digitizer-version" );
     
     if ( empty( $digitizer_version ) || version_compare( $this->version, $digitizer_version ) === 1 ) {     
         // Anything that needs to be run once when the plugin is updated
+      
+        /*
+        * UNCOMMENT THIS FOR USE
       
         // Add/remove user accounts
         $user = get_user_by( "login", "cmarcinek" );      
@@ -247,11 +249,9 @@ class Twentysixty_Digitizer_Admin {
               
               $wpdb->update( $wpdb->users, array( 'user_login' => 'abarolo' ), array( 'ID' => $user->ID ) );
             }       
-        }  
-        
-        update_option( "twentysixty-digitizer-version", $this->version );   
-
-    }    
-    */
+        }
+        */          
+      update_option( "twentysixty-digitizer-version", $this->version );   
+    }      
 	}
 }
