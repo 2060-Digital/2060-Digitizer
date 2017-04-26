@@ -16,7 +16,7 @@
  * Plugin Name:       2060 Digitizer
  * Plugin URI:        https://bitbucket.org/rbenhase1/2060-digitizer
  * Description:       Used on all 2060 Digital websites, this plugin allows us to rapidly deploy important changes and keep your website secure.
- * Version:           1.0.8
+ * Version:           1.0.9
  * Author:            Ryan Benhase
  * Author URI:        http://2060digital.com
  * License:           GPL-2.0+
