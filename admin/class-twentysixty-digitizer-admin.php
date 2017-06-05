@@ -283,7 +283,7 @@ class Twentysixty_Digitizer_Admin {
   	<img src="<?php echo $stored_url; ?>" height="<?php echo $height; ?>px" width="<?php echo $width; ?>px" alt="login logo" class="twentysixty_digitizer_login_logo_img" /><br>
   	<input type='hidden' name='twentysixty_digitizer_login_logo' size="46" value='<?php echo $stored_url; ?>'>
     <p><a href="#" class="login_logo_upload button-secondary">Upload New</a>       
-    <small>Upload a 2x (retina) version of the login logo here.</small><br><small>To keep things looking nice, we recommend this image be between 150px and 640px wide.</small></p>   
+    <small>Upload a 2x (retina) version of the login logo here.</small><br><small>To keep things looking nice, we recommend this image be between 300px and 640px wide.</small></p>   
   	</div>
       <script>
         jQuery(document).ready(function($) {
