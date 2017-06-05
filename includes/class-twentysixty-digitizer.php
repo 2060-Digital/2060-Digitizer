@@ -79,7 +79,7 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.0.10';
+		$this->version = '1.1.0';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -261,6 +261,38 @@ class Twentysixty_Digitizer {
     
     // Clean up head
     $this->loader->add_action( 'init', $plugin_public, 'head_cleanup' );
+    
+    $stored_scripts = get_option( 'twentysixty_digitizer_scripts' );
+    
+    if ( !empty( $stored_scripts ) ) {
+      if ( !empty( $stored_scripts["gtm"] ) ) {
+
+        $gtm_id = $stored_scripts["gtm"];
+        
+        // Use a closure (PHP 5.3+) to pass our variable to the wp_head action
+        add_action( 'wp_head', function() use ( $gtm_id, $plugin_public ) {
+          $plugin_public->dynamic_gtm_container_head( $gtm_id );
+        } );    
+        
+        // Try to place the noscript fallback as high in the body element as possible.
+        // This will unfortunately not work on non-BB-theme sites.
+        add_action( 'fl_body_open', function() use ( $gtm_id, $plugin_public ) {
+          $plugin_public->dynamic_gtm_container_body( $gtm_id );
+        } );  
+      }  
+      
+      // Add Analytics if ID exists
+      if ( !empty( $stored_scripts["analytics"] ) ) {
+        
+        $analytics_id = $stored_scripts["analytics"];
+        
+        // Use a closure (PHP 5.3+) to pass our variable to the wp_head action
+        add_action( 'wp_head', function() use ( $analytics_id, $plugin_public ) {
+          $plugin_public->dynamic_analytics_head( $analytics_id );
+        } );        
+      }    
+    }
+    
     
     // Remove WP version from RSS
     $this->loader->add_filter( 'the_generator', $plugin_public, 'rss_version' );

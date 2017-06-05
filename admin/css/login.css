@@ -7,10 +7,6 @@
 }
 
 .login h1 a {
-  background: url(../images/login-logo.png) no-repeat top center;
-  background-size:150px 150px;
-  width: 150px;
-  height: 150px;
   text-indent: -9999px;
   overflow: hidden;
   display: block;
@@ -18,7 +14,7 @@
 }
 
 .login form {
-  margin: 0 0 0 8px;
+  margin: .5em 0 0 0;
   padding: 26px 24px 46px;
   font-weight: normal;
   background: white;

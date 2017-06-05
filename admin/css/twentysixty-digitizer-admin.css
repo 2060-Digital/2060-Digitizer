@@ -5,3 +5,12 @@
  #accordion-panel-fl-code {
    display:none!important;
  }
+ 
+.login-logo-upload a,
+.login-logo-upload small {
+  vertical-align:middle;
+}
+
+.login-logo-upload small {
+  margin: 0 1em;
+}
