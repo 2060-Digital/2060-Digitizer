@@ -51,10 +51,28 @@ class Twentysixty_Digitizer_Activator {
     $role_designer->add_cap( 'edit_theme_options' );
     $role_designer->add_cap( 'gform_full_access' );
     $role_designer->add_cap( 'manage_options' );
+    $role_designer->add_cap( 'tablepress_edit_tables' );
+    $role_designer->add_cap( 'tablepress_delete_tables' );
+    $role_designer->add_cap( 'tablepress_list_tables' );
+    $role_designer->add_cap( 'tablepress_add_tables' );
+    $role_designer->add_cap( 'tablepress_copy_tables' );
+    $role_designer->add_cap( 'tablepress_import_tables' );
+    $role_designer->add_cap( 'tablepress_export_tables' );
+    $role_designer->add_cap( 'tablepress_access_options_screen' );
+    $role_designer->add_cap( 'tablepress_access_about_screen' );
     
     $role_site_manager = get_role( 'site_manager' );    
     $role_site_manager->add_cap( 'edit_theme_options' );
     $role_site_manager->add_cap( 'gform_full_access' );
-    $role_site_manager->add_cap( 'manage_options' );    
+    $role_site_manager->add_cap( 'manage_options' );       
+    $role_site_manager->add_cap( 'tablepress_edit_tables' );
+    $role_site_manager->add_cap( 'tablepress_delete_tables' );
+    $role_site_manager->add_cap( 'tablepress_list_tables' );
+    $role_site_manager->add_cap( 'tablepress_add_tables' );
+    $role_site_manager->add_cap( 'tablepress_copy_tables' );
+    $role_site_manager->add_cap( 'tablepress_import_tables' );
+    $role_site_manager->add_cap( 'tablepress_export_tables' );
+    $role_site_manager->add_cap( 'tablepress_access_options_screen' );
+    $role_site_manager->add_cap( 'tablepress_access_about_screen' );
 	}
 }
