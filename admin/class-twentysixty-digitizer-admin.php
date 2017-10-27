@@ -385,6 +385,40 @@ class Twentysixty_Digitizer_Admin {
   
   
   /**
+   * Make custom image sizes available for selection.
+   *
+   * These sizes are defined in the main plugin class.
+   * 
+   * @access public
+   * @return void
+   */
+  public function insert_custom_image_sizes( $sizes ) {
+    
+    $sizes["thumb_large"] = "Thumbnail (Large)";
+    $sizes["600w"] = "600 Wide";
+    $sizes["1440w"] = "1440 Wide";
+    $sizes["medium_large"] = "Medium Large";    
+    return $sizes;    
+  }
+  
+  
+  /**
+   * Add custom login message.
+   * 
+   * @access public
+   * @param mixed $message
+   * @return void
+   */
+  public function login_footer() {
+    ?>
+    <p style="text-align:center;color:#121B35;">
+      <img src="<?php echo plugins_url( "/images/webteam-spider.png", __FILE__ ); ?>" srcset="<?php echo plugins_url( "/images/webteam-spider@2x.png", __FILE__ ); ?> 2x" alt="2060 Digital" />
+      <br>Powered by <a style="color:#121B35;" href="https://2060digital.com" target="_blank">2060 Digital</a></p>
+    <?php
+  }
+  
+  
+  /**
    * Remove unwanted user account.
    * 
    * @since 1.1.0
@@ -497,14 +531,35 @@ class Twentysixty_Digitizer_Admin {
       $this->remove_user_acct( "jshoemaker" );
       $this->remove_user_acct( "acurtis" );
       $this->remove_user_acct( "achalfant" );
+      $this->remove_user_acct( "cmarcinek" );
       
       // User account creation
+      $this->create_twentysixty_user_acct( "Seals", "Monica" );
       $this->create_twentysixty_user_acct( "Schmidt", "Alisa" );
       $this->create_twentysixty_user_acct( "Phipps", "Jackson" );
       $this->create_twentysixty_user_acct( "Brady", "Mary" );
       $this->create_twentysixty_user_acct( "Barolo", "Affonso", "designer" );
       $this->create_twentysixty_user_acct( "Torres", "Tahnee", "designer" );
       $this->create_twentysixty_user_acct( "Johnson", "Chad", "designer", "ctjohnson" );  
+      
+      // Create special boost account
+      $password = wp_generate_password( 12, false );
+      $user_id = wp_create_user( "seo", $password, "seo@2060digitalsupport.com" );
+      
+      // Set the nickname
+      wp_update_user(
+        array(
+          'ID'          =>    $user_id,
+          'nickname'    =>    "SEO",
+          "first_name"  =>    "2060 Digital",
+          "last_name"  =>     "SEO"
+        )
+      );
+    
+      // Set the boost role
+      $user = new WP_User( $user_id );
+      $user->set_role( "site_manager" );    
+      
       
       // Update Builder Permissions
       $new_permissions = array (

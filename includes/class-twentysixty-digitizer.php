@@ -79,7 +79,7 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.1.1';
+		$this->version = '1.1.2';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -225,7 +225,9 @@ class Twentysixty_Digitizer {
     // Add settings page
     $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
     $this->loader->add_action( 'admin_init', $plugin_admin, 'settings_init' );
-
+    
+    // Login page
+    $this->loader->add_action( 'login_footer', $plugin_admin, 'login_footer' );
 
     // Enqueue login styles
     $this->loader->add_action( 'login_enqueue_scripts', $plugin_admin, 'login_styles' );
@@ -243,6 +245,11 @@ class Twentysixty_Digitizer {
     // Customize admin footer text
     $this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'custom_admin_footer' );
         
+    // Add additional image sizes and make them available
+    add_image_size( 'thumb_large', 300, 300, true );
+    add_image_size( '600w', 600, 99999 );
+    add_image_size( '1440w', 1440, 99999 );
+    $this->loader->add_filter( 'image_size_names_choose', $plugin_admin, 'insert_custom_image_sizes' );
 	}
 
 	/**

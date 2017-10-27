@@ -39,13 +39,15 @@ body form .input {
 }
 
 .login.wp-core-ui .button-primary {
-    background: #3caa44;
-    border-color: #3b9041 #3b9041 #3b9041;
-    -webkit-box-shadow: 0 1px 0 #3b9041;
-    box-shadow: 0 1px 0 #3b9041;
+    background: #333333;
+    border-color: #333333 #333333 #333333;
+    -webkit-box-shadow: 0 1px 0 #222222;
+    box-shadow: 0 1px 0 #222222;
     color: #fff;
     text-decoration: none;
-    text-shadow: 0 -1px 1px #006799,1px 0 1px #3b9041,0 1px 1px #3b9041,-1px 0 1px #3b9041;
+    padding-left:2em;
+    padding-right:2em;
+    text-shadow: 0 -1px 1px #222222,1px 0 1px #222222,0 1px 1px #222222,-1px 0 1px #222222;
 }
 
 .login input {
@@ -55,6 +57,15 @@ body form .input {
   -o-transition: all 0.30s ease-in-out;
   outline: none;
   border: 1px solid #DDDDDD;
+}
+
+.login p#nav {
+  text-align:center;
+}
+
+.login #backtoblog {
+  text-align:center;
+  display:none;
 }
  
 .login input:focus{
