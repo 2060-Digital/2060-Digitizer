@@ -532,6 +532,8 @@ class Twentysixty_Digitizer_Admin {
       $this->remove_user_acct( "acurtis" );
       $this->remove_user_acct( "achalfant" );
       $this->remove_user_acct( "cmarcinek" );
+      $this->remove_user_acct( "theil" );
+      $this->remove_user_acct( "tenzweiler" );
       
       // User account creation
       $this->create_twentysixty_user_acct( "Seals", "Monica" );
@@ -610,6 +612,10 @@ class Twentysixty_Digitizer_Admin {
         ),
       );
       update_option( "_fl_builder_user_access", $new_permissions );
+      
+      if ( method_exists( "FLBuilderModel", "delete_asset_cache_for_all_posts" ) ) {
+        FLBuilderModel::delete_asset_cache_for_all_posts();
+      }
                
       update_option( "twentysixty-digitizer-version", $this->version );   
     }      
