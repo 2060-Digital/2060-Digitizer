@@ -69,6 +69,6 @@ body form .input {
 }
  
 .login input:focus{
-  box-shadow: 0 0 5px #8dc63f;
-  border: 1px solid #3b9041;
+  box-shadow: 0 0 5px rgba(0,0,0,.4);
+  border: 1px solid #333;
 }

@@ -201,6 +201,15 @@ class Twentysixty_Digitizer_Admin {
   		'twentysixty_settingsPage_section_scripts' 
   	);	
   	
+    add_settings_field( 
+  		'twentysixty_digitizer_script_fb', 
+  		__( 'Facebook Base Pixel ID', $this->plugin_name ), 
+  		array( $this, 'fb_render' ), 
+  		'settingsPage', 
+  		'twentysixty_settingsPage_section_scripts' 
+  	);	
+  	
+  	
   	add_settings_section(
   		'twentysixty_settingsPage_section_login', 
   		__( '<hr><br>Customize Login Screen', $this->plugin_name ), 
@@ -260,6 +269,19 @@ class Twentysixty_Digitizer_Admin {
   	<br><br>
   	<small>Warning: Your current theme looks like it may not support the <code>fl_body_open</code> action.<br>This means that Google Tag Manager will not have a fallback for users with JavaScript disabled.<br>It is therefore recommended that you manually add your GTM container in your code instead.</small>
   	<?php endif; ?>
+  	<?php  
+  }
+  
+  /**
+   * Render Facebook Pixel field.
+   * 
+   * @access public
+   * @return void
+   */
+  public function fb_render() {   
+  	$stored_scripts = get_option( 'twentysixty_digitizer_scripts' );
+  	?>
+  	<input type='text' name='twentysixty_digitizer_scripts[fb]' size="46" placeholder="XXXXXXXXXXXXXXX" value='<?php echo $stored_scripts["fb"]; ?>'>
   	<?php  
   }
   

@@ -79,7 +79,7 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.1.4';
+		$this->version = '1.1.5';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -298,6 +298,17 @@ class Twentysixty_Digitizer {
           $plugin_public->dynamic_analytics_head( $analytics_id );
         } );        
       }    
+      
+            // Add Analytics if ID exists
+      if ( !empty( $stored_scripts["fb"] ) ) {
+        
+        $fb_id = $stored_scripts["fb"];
+        
+        // Use a closure (PHP 5.3+) to pass our variable to the wp_head action
+        add_action( 'wp_head', function() use ( $fb_id, $plugin_public ) {
+          $plugin_public->dynamic_fb_head( $fb_id );
+        } );        
+      }   
     }
     
     
