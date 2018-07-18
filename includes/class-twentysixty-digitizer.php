@@ -79,11 +79,11 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.1.5';
+		$this->version = '1.1.6';
 
 		$this->load_dependencies();
 		$this->set_locale();
-    $this->updater_init();
+    	$this->updater_init();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -220,36 +220,41 @@ class Twentysixty_Digitizer {
 		$plugin_admin = new Twentysixty_Digitizer_Admin( $this->get_plugin_name(), $this->get_version() );
 		
 		// If plugin has been updated, run any upgrades or one-time scripts
-    $this->loader->add_action( 'init', $plugin_admin, 'maybe_run_update' );
-    
-    // Add settings page
-    $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
-    $this->loader->add_action( 'admin_init', $plugin_admin, 'settings_init' );
-    
-    // Login page
-    $this->loader->add_action( 'login_footer', $plugin_admin, 'login_footer' );
+		$this->loader->add_action( 'init', $plugin_admin, 'maybe_run_update' );
+	
+		// Add settings page
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_admin_menu' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'settings_init' );
+	
+		// Login page
+		$this->loader->add_action( 'login_footer', $plugin_admin, 'login_footer' );
 
-    // Enqueue login styles
-    $this->loader->add_action( 'login_enqueue_scripts', $plugin_admin, 'login_styles' );
-    
-    // Enqueue admin scripts and styles
-    $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts_styles' );
-    
-  	// Disable default dashboard widgets
-    $this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'disable_default_dashboard_widgets' );   
-    
-    // Customize login page
-    $this->loader->add_filter( 'login_headerurl', $plugin_admin, 'login_url' );
-    $this->loader->add_filter( 'login_headertitle', $plugin_admin, 'login_title' );
-    
-    // Customize admin footer text
-    $this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'custom_admin_footer' );
-        
-    // Add additional image sizes and make them available
-    add_image_size( 'thumb_large', 300, 300, true );
-    add_image_size( '600w', 600, 99999 );
-    add_image_size( '1440w', 1440, 99999 );
-    $this->loader->add_filter( 'image_size_names_choose', $plugin_admin, 'insert_custom_image_sizes' );
+		// Enqueue login styles
+		$this->loader->add_action( 'login_enqueue_scripts', $plugin_admin, 'login_styles' );
+	
+		// Enqueue admin scripts and styles
+		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts_styles' );
+	
+		// Disable default dashboard widgets
+		$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'disable_default_dashboard_widgets' );   
+	
+		// Customize login page
+		$this->loader->add_filter( 'login_headerurl', $plugin_admin, 'login_url' );
+		$this->loader->add_filter( 'login_headertitle', $plugin_admin, 'login_title' );
+	
+		// Customize admin footer text
+		$this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'custom_admin_footer' );
+		
+		// Add additional image sizes and make them available
+		add_image_size( 'thumb_large', 300, 300, true );
+		add_image_size( '600w', 600, 99999 );
+		add_image_size( '1440w', 1440, 99999 );
+		$this->loader->add_filter( 'image_size_names_choose', $plugin_admin, 'insert_custom_image_sizes' );
+		
+		// Automatic updates for plugins & themes
+		add_filter( 'auto_update_plugin', '__return_true' );
+		add_filter( 'auto_update_theme', '__return_true' );
+
 	}
 
 	/**
@@ -263,60 +268,60 @@ class Twentysixty_Digitizer {
 
 		$plugin_public = new Twentysixty_Digitizer_Public( $this->get_plugin_name(), $this->get_version() );
     
-    // Clean up comment styles in the head
-    $this->loader->add_action( 'wp_head', $plugin_public, 'remove_recent_comments_style', 1 );
-    
-    // Clean up head
-    $this->loader->add_action( 'init', $plugin_public, 'head_cleanup' );
-    
-    $stored_scripts = get_option( 'twentysixty_digitizer_scripts' );
-    
-    if ( !empty( $stored_scripts ) ) {
-      if ( !empty( $stored_scripts["gtm"] ) ) {
+		// Clean up comment styles in the head
+		$this->loader->add_action( 'wp_head', $plugin_public, 'remove_recent_comments_style', 1 );
+	
+		// Clean up head
+		$this->loader->add_action( 'init', $plugin_public, 'head_cleanup' );
+	
+		$stored_scripts = get_option( 'twentysixty_digitizer_scripts' );
+	
+		if ( !empty( $stored_scripts ) ) {
+		  if ( !empty( $stored_scripts["gtm"] ) ) {
 
-        $gtm_id = $stored_scripts["gtm"];
-        
-        // Use a closure (PHP 5.3+) to pass our variable to the wp_head action
-        add_action( 'wp_head', function() use ( $gtm_id, $plugin_public ) {
-          $plugin_public->dynamic_gtm_container_head( $gtm_id );
-        } );    
-        
-        // Try to place the noscript fallback as high in the body element as possible.
-        // This will unfortunately not work on non-BB-theme sites.
-        add_action( 'fl_body_open', function() use ( $gtm_id, $plugin_public ) {
-          $plugin_public->dynamic_gtm_container_body( $gtm_id );
-        } );  
-      }  
-      
-      // Add Analytics if ID exists
-      if ( !empty( $stored_scripts["analytics"] ) ) {
-        
-        $analytics_id = $stored_scripts["analytics"];
-        
-        // Use a closure (PHP 5.3+) to pass our variable to the wp_head action
-        add_action( 'wp_head', function() use ( $analytics_id, $plugin_public ) {
-          $plugin_public->dynamic_analytics_head( $analytics_id );
-        } );        
-      }    
-      
-            // Add Analytics if ID exists
-      if ( !empty( $stored_scripts["fb"] ) ) {
-        
-        $fb_id = $stored_scripts["fb"];
-        
-        // Use a closure (PHP 5.3+) to pass our variable to the wp_head action
-        add_action( 'wp_head', function() use ( $fb_id, $plugin_public ) {
-          $plugin_public->dynamic_fb_head( $fb_id );
-        } );        
-      }   
-    }
-    
-    
-    // Remove WP version from RSS
-    $this->loader->add_filter( 'the_generator', $plugin_public, 'rss_version' );
-    
-    // Remove injected css for recent comments widget
-    $this->loader->add_filter( 'wp_head', $plugin_public, 'remove_wp_widget_recent_comments_style', 1 );    
+			$gtm_id = $stored_scripts["gtm"];
+		
+			// Use a closure (PHP 5.3+) to pass our variable to the wp_head action
+			add_action( 'wp_head', function() use ( $gtm_id, $plugin_public ) {
+			  $plugin_public->dynamic_gtm_container_head( $gtm_id );
+			} );    
+		
+			// Try to place the noscript fallback as high in the body element as possible.
+			// This will unfortunately not work on non-BB-theme sites.
+			add_action( 'fl_body_open', function() use ( $gtm_id, $plugin_public ) {
+			  $plugin_public->dynamic_gtm_container_body( $gtm_id );
+			} );  
+		  }  
+	  
+		  // Add Analytics if ID exists
+		  if ( !empty( $stored_scripts["analytics"] ) ) {
+		
+			$analytics_id = $stored_scripts["analytics"];
+		
+			// Use a closure (PHP 5.3+) to pass our variable to the wp_head action
+			add_action( 'wp_head', function() use ( $analytics_id, $plugin_public ) {
+			  $plugin_public->dynamic_analytics_head( $analytics_id );
+			} );        
+		  }    
+	  
+				// Add Analytics if ID exists
+		  if ( !empty( $stored_scripts["fb"] ) ) {
+		
+			$fb_id = $stored_scripts["fb"];
+		
+			// Use a closure (PHP 5.3+) to pass our variable to the wp_head action
+			add_action( 'wp_head', function() use ( $fb_id, $plugin_public ) {
+			  $plugin_public->dynamic_fb_head( $fb_id );
+			} );        
+		  }   
+		}
+	
+	
+		// Remove WP version from RSS
+		$this->loader->add_filter( 'the_generator', $plugin_public, 'rss_version' );
+	
+		// Remove injected css for recent comments widget
+		$this->loader->add_filter( 'wp_head', $plugin_public, 'remove_wp_widget_recent_comments_style', 1 );    
 
 	}
 
