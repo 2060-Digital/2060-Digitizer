@@ -556,6 +556,7 @@ class Twentysixty_Digitizer_Admin {
       $this->remove_user_acct( "cmarcinek" );
       $this->remove_user_acct( "theil" );
       $this->remove_user_acct( "tenzweiler" );
+      $this->remove_user_acct( "ddean" );
       
       // User account creation
       $this->create_twentysixty_user_acct( "Seals", "Monica" );
@@ -565,6 +566,8 @@ class Twentysixty_Digitizer_Admin {
       $this->create_twentysixty_user_acct( "Barolo", "Affonso", "designer" );
       $this->create_twentysixty_user_acct( "Torres", "Tahnee", "designer" );
       $this->create_twentysixty_user_acct( "Johnson", "Chad", "designer", "ctjohnson" );  
+      $this->create_twentysixty_user_acct( "Beltramo", "Nick" );  
+      $this->create_twentysixty_user_acct( "Henson", "Ben", "administrator" );  
       
       // Create special boost account
       $password = wp_generate_password( 12, false );
