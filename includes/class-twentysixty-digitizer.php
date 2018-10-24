@@ -79,7 +79,7 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.1.7';
+		$this->version = '1.1.8';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -322,6 +322,10 @@ class Twentysixty_Digitizer {
 	
 		// Remove injected css for recent comments widget
 		$this->loader->add_filter( 'wp_head', $plugin_public, 'remove_wp_widget_recent_comments_style', 1 );    
+		
+		// Filter robots.txt
+		$this->loader->add_filter( 'robots_txt', $plugin_public, 'filter_robots_txt', 10, 2 ); 
+
 
 	}
 

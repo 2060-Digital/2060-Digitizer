@@ -104,7 +104,7 @@ class Twentysixty_Digitizer_Admin {
   	if ( empty( $stored_url ) )
   	  $stored_url = plugins_url( 'images/login-logo.png', __FILE__ );
     
-    list($width, $height) = getimagesize( $stored_url );
+    list($width, $height) = @getimagesize( $stored_url );
     $width = $width/2;
     $height = $height/2;
     
@@ -441,101 +441,6 @@ class Twentysixty_Digitizer_Admin {
   
   
   /**
-   * Remove unwanted user account.
-   * 
-   * @since 1.1.0
-   * @access public
-   * @param String $user_login The username to remove.
-   * @return Boolean true on success, false on failure or user not found.
-   */
-  public function remove_user_acct( $user_login ) {
-    
-    $old_user = get_user_by( "login", $user_login ); 
-    
-    if ( !empty( $old_user ) ) {
-
-      // Find another user that can take ownership of old user's posts
-      $user_query = new WP_User_Query( 
-        array( 
-          'number' => 2, 
-          'fields' => array( 'ID', 'user_login' ),
-          "role__in" => array( 
-            "administrator", 
-            "site_manager", 
-            "designer" 
-          ) 
-        )
-      );
-      
-      if ( ! empty( $user_query->results ) ) {
-      	foreach ( $user_query->results as $user ) {      	
-        	if ( $user->ID != $old_user->ID )
-      		  $new_post_owner = get_user_by( "login", $user->user_login );
-      	}
-      } else {
-        // Could not find viable user. Don't delete existing.
-      	return false;
-      }      
-      
-      if ( $old_user->ID != $new_post_owner->ID ) {      
-        require_once( ABSPATH . 'wp-admin/includes/user.php' );
-        return wp_delete_user( $old_user->ID, $new_post_owner->ID );      
-      }   
-    }
-    return false; 
-  }  
-  
-  /**
-   * Create a new user account. 
-   * Requires the user to use an @2060digital.com email adddress, where
-   * their $user_login corresponds to the first part of their email.
-   * 
-   * @since 1.1.0
-   * @access public
-   * @param String $first_name  The user's first name.
-   * @param String $last_name   The user's last name.
-   * @param String $user_role   The role of the user (optional, defaults to Site Manager)
-   * @param String $user_login  The username/login of the user (optional, defaults to first initial followed by last name)
-   * @return Boolean true on success, false on failure or user already exists.
-   */
-  public function create_twentysixty_user_acct( $last_name, $first_name, $user_role = "site_manager", $user_login = null ) {
-    
-    /*
-     * Unless user login has been explicitly specified, determine username by user's first name & last name.
-     * Note: If the user's 2060 Digital email address is not simply their first initial followed by last name, 
-     * then you NEED to pass the correct username via $user_login (e.g. ctjohnson instead of cjohnson).
-     */
-    if ( empty( $user_login ) ) {
-      $user_login = strtolower( substr( $first_name, 0, 1 ) . $last_name );
-    }
-    
-    // If username doesn't already exist, attempt to create
-    if ( null == username_exists( $user_login ) ) {
-    
-      $password = wp_generate_password( 12, false );
-      $user_email = $user_login . "@2060digital.com";
-      $user_id = wp_create_user( $user_login, $password, $user_email );
-    
-      // Set the nickname
-      wp_update_user(
-        array(
-          'ID'          =>    $user_id,
-          'nickname'    =>    $user_email,
-          "first_name"  =>    $first_name,
-          "last_name"  =>     $last_name
-        )
-      );
-    
-      // Set the role
-      $user = new WP_User( $user_id );
-      $user->set_role( $user_role );    
-    
-    } // end if
-    
-    return false;
-  }  
-  
-  /**
    * Keep database/user accounts in sync. 
    * Will often contain hardcoded data to roll out to all sites.
    * 
@@ -547,46 +452,7 @@ class Twentysixty_Digitizer_Admin {
     $digitizer_version = get_option( "twentysixty-digitizer-version" );  
     
     if ( empty( $digitizer_version ) || version_compare( $this->version, $digitizer_version ) === 1 ) {     
-      
-      // User account removals
-      $this->remove_user_acct( "rthomason" );
-      $this->remove_user_acct( "jshoemaker" );
-      $this->remove_user_acct( "acurtis" );
-      $this->remove_user_acct( "achalfant" );
-      $this->remove_user_acct( "cmarcinek" );
-      $this->remove_user_acct( "theil" );
-      $this->remove_user_acct( "tenzweiler" );
-      $this->remove_user_acct( "ddean" );
-      
-      // User account creation
-      $this->create_twentysixty_user_acct( "Seals", "Monica" );
-      $this->create_twentysixty_user_acct( "Schmidt", "Alisa" );
-      $this->create_twentysixty_user_acct( "Phipps", "Jackson" );
-      $this->create_twentysixty_user_acct( "Brady", "Mary" );
-      $this->create_twentysixty_user_acct( "Barolo", "Affonso", "designer" );
-      $this->create_twentysixty_user_acct( "Torres", "Tahnee", "designer" );
-      $this->create_twentysixty_user_acct( "Johnson", "Chad", "designer", "ctjohnson" );  
-      $this->create_twentysixty_user_acct( "Beltramo", "Nick" );  
-      $this->create_twentysixty_user_acct( "Henson", "Ben", "administrator" );  
-      
-      // Create special boost account
-      $password = wp_generate_password( 12, false );
-      $user_id = wp_create_user( "seo", $password, "seo@2060digitalsupport.com" );
-      
-      // Set the nickname
-      wp_update_user(
-        array(
-          'ID'          =>    $user_id,
-          'nickname'    =>    "SEO",
-          "first_name"  =>    "2060 Digital",
-          "last_name"  =>     "SEO"
-        )
-      );
-    
-      // Set the boost role
-      $user = new WP_User( $user_id );
-      $user->set_role( "site_manager" );    
-      
+            
       
       // Update Builder Permissions
       $new_permissions = array (

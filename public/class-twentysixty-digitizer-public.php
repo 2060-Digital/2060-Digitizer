@@ -222,5 +222,21 @@ class Twentysixty_Digitizer_Public {
 
     <?php
   }
+  
 
+  /**
+   * Filter robots.txt.
+   * 
+   * @access public
+   * @param String $output
+   * @param Boolean $public
+   * @return String
+   */
+  public function filter_robots_txt( $output, $public ) { 
+      if ( $public == true ) {
+        $output .= "\nDisallow: /suggest/?*\n\nSitemap: " . get_site_url( null, "/sitemap_index.xml" ) . "\n";
+      }
+      return $output;
+  }
+  
 }
