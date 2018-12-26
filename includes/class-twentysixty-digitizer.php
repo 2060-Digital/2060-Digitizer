@@ -79,11 +79,11 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.1.8';
+		$this->version = '1.1.9';
 
 		$this->load_dependencies();
 		$this->set_locale();
-    	$this->updater_init();
+		$this->updater_init();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
@@ -248,6 +248,7 @@ class Twentysixty_Digitizer {
 		// Add additional image sizes and make them available
 		add_image_size( 'thumb_large', 300, 300, true );
 		add_image_size( '600w', 600, 99999 );
+		add_image_size( '600x300', 600, 300, true );
 		add_image_size( '1440w', 1440, 99999 );
 		$this->loader->add_filter( 'image_size_names_choose', $plugin_admin, 'insert_custom_image_sizes' );
 		

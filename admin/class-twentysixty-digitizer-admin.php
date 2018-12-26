@@ -418,6 +418,7 @@ class Twentysixty_Digitizer_Admin {
     
     $sizes["thumb_large"] = "Thumbnail (Large)";
     $sizes["600w"] = "600 Wide";
+    $sizes["600x300"] = "600 x 300 Cropped";
     $sizes["1440w"] = "1440 Wide";
     $sizes["medium_large"] = "Medium Large";    
     return $sizes;    
