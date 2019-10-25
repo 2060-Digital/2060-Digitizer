@@ -79,7 +79,7 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.1.9';
+		$this->version = '1.1.10';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -150,7 +150,7 @@ class Twentysixty_Digitizer {
 
 		$className = PucFactory::getLatestClassVersion( 'PucGitHubChecker' );
 		$myUpdateChecker = new $className(
-			'https://github.com/2060digital/2060-digitizer/',
+			'https://github.com/2060-Digital/2060-digitizer/',
 			$this->main_file,
 			'master'
 		);
