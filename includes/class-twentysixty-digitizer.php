@@ -79,7 +79,8 @@ class Twentysixty_Digitizer {
 
   	$this->main_file = $main_file;
 		$this->plugin_name = 'twentysixty-digitizer';
-		$this->version = '1.1.10';
+		$this->version = '1.1.12';
+
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -148,13 +149,13 @@ class Twentysixty_Digitizer {
 	 */
 	private function updater_init() {
 
-		$className = PucFactory::getLatestClassVersion( 'PucGitHubChecker' );
-		$myUpdateChecker = new $className(
+		$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 			'https://github.com/2060-Digital/2060-digitizer/',
 			$this->main_file,
-			'master'
+			'master',
+			'twentysixty-digitizer'
 		);
-		
+
 		$access_key = get_option( 'twentysixty_digitizer_remote_access_token' );
 		
 		if ( !empty( $access_key ) ) {
