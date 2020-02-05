@@ -148,13 +148,13 @@ class Twentysixty_Digitizer {
 	 */
 	private function updater_init() {
 
-		$className = PucFactory::getLatestClassVersion( 'PucGitHubChecker' );
-		$myUpdateChecker = new $className(
+		$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 			'https://github.com/2060-Digital/2060-digitizer/',
 			$this->main_file,
-			'master'
+			'master',
+			'twentysixty-digitizer'
 		);
-		
+
 		$access_key = get_option( 'twentysixty_digitizer_remote_access_token' );
 		
 		if ( !empty( $access_key ) ) {
