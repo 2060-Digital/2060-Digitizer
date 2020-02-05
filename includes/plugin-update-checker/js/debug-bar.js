@@ -2,7 +2,7 @@ jQuery(function($) {
 
 	function runAjaxAction(button, action) {
 		button = $(button);
-		var panel = button.closest('.puc-debug-bar-panel-v4');
+		var panel = button.closest('.puc-debug-bar-panel');
 		var responseBox = button.closest('td').find('.puc-ajax-response');
 
 		responseBox.text('Processing...').show();
@@ -10,7 +10,7 @@ jQuery(function($) {
 			ajaxurl,
 			{
 				action  : action,
-				uid     : panel.data('uid'),
+				slug    : panel.data('slug'),
 				_wpnonce: panel.data('nonce')
 			},
 			function(data) {
@@ -20,13 +20,13 @@ jQuery(function($) {
 		);
 	}
 
-	$('.puc-debug-bar-panel-v4 input[name="puc-check-now-button"]').click(function() {
-		runAjaxAction(this, 'puc_v4_debug_check_now');
+	$('.puc-debug-bar-panel input[name="puc-check-now-button"]').click(function() {
+		runAjaxAction(this, 'puc_debug_check_now');
 		return false;
 	});
 
-	$('.puc-debug-bar-panel-v4 input[name="puc-request-info-button"]').click(function() {
-		runAjaxAction(this, 'puc_v4_debug_request_info');
+	$('.puc-debug-bar-panel input[name="puc-request-info-button"]').click(function() {
+		runAjaxAction(this, 'puc_debug_request_info');
 		return false;
 	});
 
@@ -34,19 +34,19 @@ jQuery(function($) {
 	// Debug Bar uses the panel class name as part of its link and container IDs. This means we can
 	// end up with multiple identical IDs if more than one plugin uses the update checker library.
 	// Fix it by replacing the class name with the plugin slug.
-	var panels = $('#debug-menu-targets').find('.puc-debug-bar-panel-v4');
-	panels.each(function() {
+	var panels = $('#debug-menu-targets').find('.puc-debug-bar-panel');
+	panels.each(function(index) {
 		var panel = $(this);
-		var uid = panel.data('uid');
+		var slug = panel.data('slug');
 		var target = panel.closest('.debug-menu-target');
 
 		//Change the panel wrapper ID.
-		target.attr('id', 'debug-menu-target-puc-' + uid);
+		target.attr('id', 'debug-menu-target-puc-' + slug);
 
 		//Change the menu link ID as well and point it at the new target ID.
-		$('#debug-bar-menu').find('.puc-debug-menu-link-' + uid)
+		$('#puc-debug-menu-link-' + panel.data('slug'))
 			.closest('.debug-menu-link')
-			.attr('id', 'debug-menu-link-puc-' + uid)
+			.attr('id', 'debug-menu-link-puc-' + slug)
 			.attr('href', '#' + target.attr('id'));
 	});
 });
