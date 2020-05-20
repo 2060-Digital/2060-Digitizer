@@ -133,7 +133,7 @@ class Twentysixty_Digitizer {
 		/**
 		 * The class responsible for checking for plugin updates.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/plugin-update-checker/plugin-update-checker.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/plugin-update-checker-4.9/plugin-update-checker.php';
 
 
 		$this->loader = new Twentysixty_Digitizer_Loader();
@@ -148,17 +148,16 @@ class Twentysixty_Digitizer {
 	 */
 	private function updater_init() {
 
-		$className = PucFactory::getLatestClassVersion( 'PucGitHubChecker' );
-		$myUpdateChecker = new $className(
-			'https://github.com/2060-Digital/2060-digitizer/',
+		$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+			'https://github.com/2060-digital/2060-digitizer/',
 			$this->main_file,
-			'master'
+			$this->plugin_name
 		);
 		
 		$access_key = get_option( 'twentysixty_digitizer_remote_access_token' );
-		
+
 		if ( !empty( $access_key ) ) {
-  		$myUpdateChecker->setAccessToken( $access_key );
+  		$myUpdateChecker->setAuthentication( $access_key );
 		}	else {
   		$this->loader->add_action( "admin_notices", $this, "display_access_key_notice" );
 		}
