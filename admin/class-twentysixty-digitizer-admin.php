@@ -102,11 +102,11 @@ class Twentysixty_Digitizer_Admin {
     // Dynamic styles
     $stored_url = get_option( 'twentysixty_digitizer_login_logo' );
   	if ( empty( $stored_url ) )
-  	  $stored_url = str_replace("https://", "http://", plugins_url( 'images/login-logo.png', __FILE__ ));
+  	  $stored_url =  plugins_url( 'images/login-logo.png', __FILE__ );
     
   
 
-    list($width, $height) = getimagesize( $stored_url );
+    list($width, $height) = getimagesize( str_replace("https://", "http://", $stored_url) );
     $width = $width/2;
     $height = $height/2;
     
