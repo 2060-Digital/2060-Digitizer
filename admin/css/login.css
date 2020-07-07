@@ -3,28 +3,28 @@
  */
 
 #login {
-  padding: 4% 0 0 0; 
+  padding: 4% 0 0 0;
 }
 
 .login h1 a {
   text-indent: -9999px;
   overflow: hidden;
   display: block;
-  margin: 0 auto; 
+  margin: 0 auto 2rem;
 }
 
 .login form {
-  margin: .5em 0 0 0;
+  margin: 0.5em 0 0 0;
   padding: 26px 24px 46px;
   font-weight: normal;
   background: white;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   border-radius: 3px;
-  box-shadow: none; 
+  box-shadow: none;
 }
 
 body form .input {
-  font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", sans-serif;
   font-weight: 200;
   font-size: 24px;
   width: 97%;
@@ -32,43 +32,43 @@ body form .input {
   margin-top: 2px;
   margin-right: 6px;
   margin-bottom: 16px;
-  border: 1px solid #E5E5E5;
-  background: #FBFBFB;
+  border: 1px solid #e5e5e5;
+  background: #fbfbfb;
   outline: none;
-  box-shadow: inset 1px 1px 2px rgba(200, 200, 200, 0.2); 
+  box-shadow: inset 1px 1px 2px rgba(200, 200, 200, 0.2);
 }
 
 .login.wp-core-ui .button-primary {
-    background: #333333;
-    border-color: #333333 #333333 #333333;
-    -webkit-box-shadow: 0 1px 0 #222222;
-    box-shadow: 0 1px 0 #222222;
-    color: #fff;
-    text-decoration: none;
-    padding-left:2em;
-    padding-right:2em;
-    text-shadow: 0 -1px 1px #222222,1px 0 1px #222222,0 1px 1px #222222,-1px 0 1px #222222;
+  background: #333333;
+  border-color: #333333 #333333 #333333;
+  -webkit-box-shadow: 0 1px 0 #222222;
+  box-shadow: 0 1px 0 #222222;
+  color: #fff;
+  text-decoration: none;
+  padding-left: 2em;
+  padding-right: 2em;
+  text-shadow: 0 -1px 1px #222222, 1px 0 1px #222222, 0 1px 1px #222222, -1px 0 1px #222222;
 }
 
 .login input {
-  -webkit-transition: all 0.30s ease-in-out;
-  -moz-transition: all 0.30s ease-in-out;
-  -ms-transition: all 0.30s ease-in-out;
-  -o-transition: all 0.30s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
   outline: none;
-  border: 1px solid #DDDDDD;
+  border: 1px solid #dddddd;
 }
 
 .login p#nav {
-  text-align:center;
+  text-align: center;
 }
 
 .login #backtoblog {
-  text-align:center;
-  display:none;
+  text-align: center;
+  display: none;
 }
- 
-.login input:focus{
-  box-shadow: 0 0 5px rgba(0,0,0,.4);
+
+.login input:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   border: 1px solid #333;
 }

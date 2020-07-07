@@ -102,9 +102,11 @@ class Twentysixty_Digitizer_Admin {
     // Dynamic styles
     $stored_url = get_option( 'twentysixty_digitizer_login_logo' );
   	if ( empty( $stored_url ) )
-  	  $stored_url = plugins_url( 'images/login-logo.png', __FILE__ );
+  	  $stored_url = str_replace("https://", "http://", plugins_url( 'images/login-logo.png', __FILE__ ));
     
-    list($width, $height) = @getimagesize( $stored_url );
+  
+
+    list($width, $height) = getimagesize( $stored_url );
     $width = $width/2;
     $height = $height/2;
     
@@ -137,7 +139,7 @@ class Twentysixty_Digitizer_Admin {
    * @return void
    */
   public function custom_admin_footer() {
-  	_e( '<span id="footer-thankyou">Developed by <a href="http://2060digital.com" target="_blank">2060 Digital</a></span>.', 'twentysixtytheme' );
+  	_e( '<span id="footer-thankyou">Developed by <a href="//2060digital.com" target="_blank">2060 Digital</a></span>.', 'twentysixtytheme' );
   }
   
 
