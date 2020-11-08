@@ -454,64 +454,11 @@ class Twentysixty_Digitizer_Admin {
      
     $digitizer_version = get_option( "twentysixty-digitizer-version" );  
     
-    if ( empty( $digitizer_version ) || version_compare( $this->version, $digitizer_version ) === 1 ) {     
-            
-      
-      // Update Builder Permissions
-      $new_permissions = array (
-        'unrestricted_editing' => 
-        array (
-          'administrator' => true,
-          'editor' => true,
-          'author' => true,
-          'contributor' => true,
-          'designer' => true,
-          'site_manager' => true,
-        ),
-        'global_node_editing' => 
-        array (
-          'administrator' => true,
-          'editor' => true,
-          'author' => true,
-          'contributor' => true,
-          'designer' => true,
-          'site_manager' => true,
-        ),
-        'theme_builder_editing' => 
-        array (
-          'administrator' => true,
-          'editor' => false,
-          'author' => false,
-          'contributor' => false,
-          'designer' => true,
-          'site_manager' => false,
-        ),
-        'builder_admin' => 
-        array (
-          'administrator' => true,
-          'editor' => true,
-          'author' => true,
-          'contributor' => true,
-          'designer' => true,
-          'site_manager' => true,
-        ),
-        'template_data_exporter' => 
-        array (
-          'administrator' => true,
-          'editor' => false,
-          'author' => false,
-          'contributor' => false,
-          'designer' => true,
-          'site_manager' => true,
-        ),
-      );
-      update_option( "_fl_builder_user_access", $new_permissions );
-      
-      if ( method_exists( "FLBuilderModel", "delete_asset_cache_for_all_posts" ) ) {
-        FLBuilderModel::delete_asset_cache_for_all_posts();
-      }
+    if ( empty( $digitizer_version ) || version_compare( $this->version, $digitizer_version ) === 1 ) {
+
+        update_option( "autoptimize_cdn_url", "" );
                
-      update_option( "twentysixty-digitizer-version", $this->version );   
+        update_option( "twentysixty-digitizer-version", $this->version );
     }      
-	}
+  }
 }
