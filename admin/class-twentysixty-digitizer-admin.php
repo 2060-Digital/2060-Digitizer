@@ -102,7 +102,7 @@ class Twentysixty_Digitizer_Admin {
     // Dynamic styles
     $stored_url = get_option( 'twentysixty_digitizer_login_logo' );
   	if ( empty( $stored_url ) )
-  	  $stored_url =  plugins_url( 'images/login-logo.png', __FILE__ );
+  	  $stored_url =  plugins_url( 'images/login-logo.png?v=2020', __FILE__ );
     
   
 
@@ -296,7 +296,7 @@ class Twentysixty_Digitizer_Admin {
   public function login_logo_render() {   
   	$stored_url = get_option( 'twentysixty_digitizer_login_logo' );
   	if ( empty( $stored_url ) )
-  	  $stored_url = plugins_url( 'images/login-logo.png', __FILE__ );
+  	  $stored_url = plugins_url( 'images/login-logo.png?v=2020', __FILE__ );
   	 
     list($width, $height) = getimagesize( $stored_url );
     $width = $width/2;
