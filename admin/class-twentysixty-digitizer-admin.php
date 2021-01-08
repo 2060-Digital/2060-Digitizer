@@ -112,7 +112,7 @@ class Twentysixty_Digitizer_Admin {
     
     $dynamic_styles = "
     .login h1 a {
-      background: url({$stored_url}?v=2020) no-repeat top center;
+      background: url({$stored_url}) no-repeat top center;
       background-size:{$width}px {$height}px;
       width:{$width}px;
       height:{$height}px;
