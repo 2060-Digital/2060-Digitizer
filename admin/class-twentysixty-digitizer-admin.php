@@ -102,7 +102,7 @@ class Twentysixty_Digitizer_Admin {
     // Dynamic styles
     $stored_url = get_option( 'twentysixty_digitizer_login_logo' );
   	if ( empty( $stored_url ) )
-  	  $stored_url =  plugins_url( 'images/login-logo.png?v=2020', __FILE__ );
+  	  $stored_url =  plugins_url( 'images/login-logo.png', __FILE__ );
     
   
 
@@ -112,7 +112,7 @@ class Twentysixty_Digitizer_Admin {
     
     $dynamic_styles = "
     .login h1 a {
-      background: url({$stored_url}) no-repeat top center;
+      background: url({$stored_url}?v=2020) no-repeat top center;
       background-size:{$width}px {$height}px;
       width:{$width}px;
       height:{$height}px;
@@ -296,16 +296,18 @@ class Twentysixty_Digitizer_Admin {
   public function login_logo_render() {   
   	$stored_url = get_option( 'twentysixty_digitizer_login_logo' );
   	if ( empty( $stored_url ) )
-  	  $stored_url = plugins_url( 'images/login-logo.png?v=2020', __FILE__ );
+  	  $stored_url = plugins_url( 'images/login-logo.png', __FILE__ );
   	 
     list($width, $height) = getimagesize( $stored_url );
     $width = $width/2;
     $height = $height/2;
+
+    $logo_url = $stored_url . '?v=2020';
     
   	?>
   	<div class="login-logo-upload">
-  	<img src="<?php echo $stored_url; ?>" height="<?php echo $height; ?>px" width="<?php echo $width; ?>px" alt="login logo" class="twentysixty_digitizer_login_logo_img" /><br>
-  	<input type='hidden' name='twentysixty_digitizer_login_logo' size="46" value='<?php echo $stored_url; ?>'>
+  	<img src="<?php echo $logo_url; ?>" height="<?php echo $height; ?>px" width="<?php echo $width; ?>px" alt="login logo" class="twentysixty_digitizer_login_logo_img" /><br>
+  	<input type='hidden' name='twentysixty_digitizer_login_logo' size="46" value='<?php echo $logo_url; ?>'>
     <p><a href="#" class="login_logo_upload button-secondary">Upload New</a>       
     <small>Upload a 2x (retina) version of the login logo here.</small><br><small>To keep things looking nice, we recommend this image be between 300px and 640px wide.</small></p>   
   	</div>
