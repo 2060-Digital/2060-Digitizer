@@ -458,8 +458,15 @@ class Twentysixty_Digitizer_Admin {
     
     if ( empty( $digitizer_version ) || version_compare( $this->version, $digitizer_version ) === 1 ) {
 
+      $autoptimize_excluded_scripts = get_option( "autoptimize_js_exclude" );
+      $min_jquery_is_not_excluded = strpos( $autoptimize_excluded_scripts, "/js/jquery/jquery.min.js" ) === false;
+
+      if($min_jquery_is_not_excluded) {
+        update_option( "autoptimize_js_exclude", $autoptimize_excluded_scripts . ", /js/jquery/jquery.min.js" );
+      }
+
+        // keep this empty
         update_option( "autoptimize_cdn_url", "" );
-               
         update_option( "twentysixty-digitizer-version", $this->version );
     }      
   }
