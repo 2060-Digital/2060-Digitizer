@@ -74,6 +74,8 @@ class Twentysixty_Digitizer_Admin {
   	unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);      // Recent Drafts Widget
   	unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);            // Primary
   	unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);          // Secondary
+  	
+  	unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_site_health']);      // Site Health
   }
 
   /*
