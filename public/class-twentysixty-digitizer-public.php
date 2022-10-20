@@ -239,4 +239,34 @@ class Twentysixty_Digitizer_Public {
       return $output;
   }
   
+  
+	/**
+	 * Override "from" address in Gravity Forms with a generic noreply address on the same domain as the website.
+	 * 
+	 * @access public
+	 * @param mixed $notification
+	 * @param mixed $form
+	 * @param mixed $entry
+	 * @return void
+	 */
+	public function change_form_notification_source( $notification, $form, $entry ) {
+  	
+  	
+  	$urlparts = parse_url(home_url());
+    $domain = $urlparts['host'];
+    error_log("FROM");
+    error_log($notification['from'] );
+  	 
+ 
+    // Never use default/admin email as the "From" address. Instead, use a generic noreply address from the website's domain
+    if ( $notification['from'] === "{admin_email}" ) {
+      error_log("REPLACING");
+      $notification['from'] = 'noreply@' . $domain;
+    }
+ 
+ 
+    return $notification;
+	}
+
+  
 }

@@ -471,5 +471,5 @@ class Twentysixty_Digitizer_Admin {
         update_option( "autoptimize_cdn_url", "" );
         update_option( "twentysixty-digitizer-version", $this->version );
     }      
-  }
+  }  
 }

@@ -244,6 +244,8 @@ class Twentysixty_Digitizer {
 		// Customize admin footer text
 		$this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'custom_admin_footer' );
 		
+		
+		
 		// Add additional image sizes and make them available
 		add_image_size( 'thumb_large', 300, 300, true );
 		add_image_size( '600w', 600, 99999 );
@@ -256,7 +258,8 @@ class Twentysixty_Digitizer {
 		add_filter( 'auto_update_theme', '__return_true' );
 
 	}
-
+	
+	
 	/**
 	 * Register all of the hooks related to the public-facing functionality
 	 * of the plugin.
@@ -325,6 +328,10 @@ class Twentysixty_Digitizer {
 		
 		// Filter robots.txt
 		$this->loader->add_filter( 'robots_txt', $plugin_public, 'filter_robots_txt', 10, 2 ); 
+		
+		
+    // Modify the "From" address header in Gravity Forms notification emails
+		$this->loader->add_filter( 'gform_notification', $plugin_public, 'change_form_notification_source', 10, 3 );
 
 
 	}
